@@ -46,6 +46,16 @@ impl SearchClient {
 
         Ok(())
     }
+
+    pub async fn delete_project_value(&self, project_id: &str, value: &str) -> Result<(), Error> {
+        self.http_client
+            .delete(format!("{}/project/{}/value/{}", self.base_url, project_id, value))
+            .send()
+            .await?
+            .error_for_status()?;
+
+        Ok(())
+    }
 }
 
 impl Default for SearchClient {
